@@ -15,3 +15,4 @@ $ docker-compose up -d
 - Uses [chi cors](https://github.com/go-chi/cors)
 - Uses [jackc/pgx](https://github.com/jackc/pgx)
     $ go get github.com/jackc/pgconn
+    $ go get github.com/jackc/pgx/v4
