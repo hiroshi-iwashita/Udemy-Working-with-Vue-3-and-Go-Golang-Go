@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/hiroshi-iwashita/Udemy-Working-with-Vue-3-and-Go-Golang-Go/internal/driver"
+	"github.com/hiroshi-iwashita/Udemy-Working-with-Vue-3-and-Go-Golang-Go/internal/driver/data"
 )
 
 // config is the type for all application configuration
@@ -21,7 +22,7 @@ type application struct {
 	config   config
 	infoLog  *log.Logger
 	errorLog *log.Logger
-	db       *driver.DB
+	models   data.Models
 }
 
 // main is the main entry point for our application
@@ -43,7 +44,7 @@ func main() {
 		config:   cfg,
 		infoLog:  infoLog,
 		errorLog: errorLog,
-		db:       db,
+		models:   data.New(db.SQL),
 	}
 
 	err = app.serve()
