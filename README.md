@@ -13,3 +13,5 @@ $ docker-compose up -d
 ### modules
 - Uses [chi router](https://github.com/go-chi/chi)
 - Uses [chi cors](https://github.com/go-chi/cors)
+- Uses [jackc/pgx](https://github.com/jackc/pgx)
+    $ go get github.com/jackc/pgconn
