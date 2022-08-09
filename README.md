@@ -11,4 +11,5 @@ $ docker-compose up -d
 - Build in Go version 1.17
 
 ### modules
-- Uses [chi router](https://github.com/go-chi/chi/v5)
+- Uses [chi router](https://github.com/go-chi/chi)
+- Uses [chi cors](https://github.com/go-chi/cors)
