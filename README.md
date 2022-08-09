@@ -16,3 +16,4 @@ $ docker-compose up -d
 - Uses [jackc/pgx](https://github.com/jackc/pgx)
     $ go get github.com/jackc/pgconn
     $ go get github.com/jackc/pgx/v4
+    $ go get github.com/jackc/pgx/v4/stdlib
