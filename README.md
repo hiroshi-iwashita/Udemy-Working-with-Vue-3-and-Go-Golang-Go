@@ -9,6 +9,7 @@ $ docker-compose up -d
 
 ### version
 - Build in Go version 1.17
+- Install [make](https://www.gnu.org/software/make/manual/) globally via [Homebrew](https://brew.sh/) in Mac
 
 ### modules
 - Uses [chi router](https://github.com/go-chi/chi)
