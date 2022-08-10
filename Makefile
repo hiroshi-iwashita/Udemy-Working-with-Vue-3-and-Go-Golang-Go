@@ -10,8 +10,9 @@ build:
 ## run: builds and runs the application
 run: build
 	@echo "Starting back end..."
-	@env DSN=${DSN} ./${BINARY_NAME} &
+	@env DSN=${DSN} go run ./cmd/api
 	@echo "Back end started!"
+## might be "@env DSN=${DSN} ./${BINARY_NAME} &" ?
 
 ## clean: runs go clean and deletes binaries
 clean:
