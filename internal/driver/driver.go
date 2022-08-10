@@ -16,8 +16,8 @@ type DB struct {
 
 var dbConn = &DB{}
 
-const maxOpenDbConne = 5 // might be changed in production
-const maxIdleDbConne = 5 // might be changed in production
+const maxOpenDbConn = 5 // might be changed in production
+const maxIdleDbConn = 5 // might be changed in production
 const maxDbLifeTime = 5 * time.Minute
 
 func ConnectPostgres(dsn string) (*DB, error) {
@@ -26,8 +26,8 @@ func ConnectPostgres(dsn string) (*DB, error) {
 		return nil, err
 	}
 
-	d.SetMaxOpenConns(maxOpenDbConne)
-	d.SetMaxIdleConns(maxIdleDbConne)
+	d.SetMaxOpenConns(maxOpenDbConn)
+	d.SetMaxIdleConns(maxIdleDbConn)
 	d.SetConnMaxLifetime(maxDbLifeTime)
 
 	err = testDB(d)
