@@ -4,11 +4,13 @@ import (
 	"net/http"
 )
 
+// jsonResponse is the type used for generic JSON responses
 type jsonResponse struct {
 	Error   bool   `json:"error"`
 	Message string `json:"message"`
 }
 
+// Login is the handler used to attempt to log a user into the api
 func (app *application) Login(w http.ResponseWriter, r *http.Request) {
 	type credentials struct {
 		UserName string `json:"email"`
