@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/hiroshi-iwashita/Udemy-Working-with-Vue-3-and-Go-Golang-Go/internal/data"
 	"github.com/hiroshi-iwashita/Udemy-Working-with-Vue-3-and-Go-Golang-Go/internal/driver"
-	"github.com/hiroshi-iwashita/Udemy-Working-with-Vue-3-and-Go-Golang-Go/internal/driver/data"
 )
 
 // config is the type for all application configuration
@@ -36,7 +36,7 @@ func main() {
 	dsn := os.Getenv("DSN")
 	db, err := driver.ConnectPostgres(dsn)
 	if err != nil {
-		log.Fatal("cannot connect to database")
+		log.Fatal("Cannot connect to database")
 	}
 	defer db.SQL.Close()
 
@@ -53,6 +53,7 @@ func main() {
 	}
 }
 
+// serve starts the web server
 func (app *application) serve() error {
 	app.infoLog.Println("API listening on port", app.config.port)
 
