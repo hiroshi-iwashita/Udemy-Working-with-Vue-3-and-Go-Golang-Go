@@ -18,3 +18,6 @@ $ docker-compose up -d
     $ go get github.com/jackc/pgconn
     $ go get github.com/jackc/pgx/v4
     $ go get github.com/jackc/pgx/v4/stdlib
+
+### references
+- [PostgreSQL Error Codes](https://www.postgresql.org/docs/14/errcodes-appendix.html)
