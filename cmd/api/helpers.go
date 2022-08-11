@@ -29,7 +29,7 @@ func (app *application) readJSON(w http.ResponseWriter, r *http.Request, data in
 
 // writeJSON takes a response status code and aribitrary data and writes a json response to the client
 func (app *application) writeJSON(w http.ResponseWriter, status int, data interface{}, headers ...http.Header) error {
-	out, err := json.MarshalIndent(data, "", "\t")
+	out, err := json.MarshalIndent(data, "", "\t") // change MarshalIndent to Marshal in production
 	if err != nil {
 		return err
 	}
