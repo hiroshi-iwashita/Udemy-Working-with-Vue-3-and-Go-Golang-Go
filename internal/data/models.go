@@ -264,7 +264,7 @@ func (u *User) Insert(user User) (int, error) {
 			first_name,
 			last_name,
 			password,
-			user_active
+			user_active,
 			created_at,
 			updated_at
 		)
