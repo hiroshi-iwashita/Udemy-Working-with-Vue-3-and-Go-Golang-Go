@@ -4,6 +4,8 @@ import (
 	"errors"
 	"net/http"
 	"time"
+
+	"github.com/hiroshi-iwashita/Udemy-Working-with-Vue-3-and-Go-Golang-Go/internal/data"
 )
 
 // jsonResponse is the type used for generic JSON responses
@@ -97,4 +99,21 @@ func (app *application) Logout(w http.ResponseWriter, r *http.Request) {
 	}
 
 	_ = app.writeJSON(w, http.StatusOK, payload)
+}
+
+func (app *application) AllUsers(w http.ResponseWriter, r *http.Request) {
+	var users data.User
+	all, err := users.GetAll()
+	if err != nil {
+		app.errorLog.Println(err)
+		return
+	}
+
+	payload := jsonResponse{
+		Error:   false,
+		Message: "success",
+		Data:    envelope{"users": all},
+	}
+
+	app.writeJSON(w, http.StatusOK, payload)
 }
