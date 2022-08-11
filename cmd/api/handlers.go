@@ -59,6 +59,11 @@ func (app *application) Login(w http.ResponseWriter, r *http.Request) {
 		app.errorJSON(w, err)
 	}
 
+	// make sure user is active
+	if user.Active == 0 {
+		app.errorJSON(w, errors.New("user is not active"))
+	}
+
 	// save it to the database
 	err = app.models.Token.Insert(*token, *user)
 	if err != nil {
@@ -144,6 +149,7 @@ func (app *application) EditUser(w http.ResponseWriter, r *http.Request) {
 		u.Email = user.Email
 		u.FirstName = user.FirstName
 		u.LastName = user.LastName
+		u.Active = user.Active
 
 		if err := u.Update(); err != nil {
 			app.errorJSON(w, err)

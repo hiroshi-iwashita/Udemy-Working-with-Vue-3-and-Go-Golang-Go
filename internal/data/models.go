@@ -47,6 +47,7 @@ type User struct {
 	FirstName string    `json:"first_name,omitempty"`
 	LastName  string    `json:"last_name,omitempty"`
 	Password  string    `json:"password"`
+	Active    int       `json:"active"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 	Token     Token     `json:"token"`
@@ -63,8 +64,13 @@ func (u *User) GetAll() ([]*User, error) {
 		first_name,
 		last_name,
 		password,
+		user_active,
 		created_at,
-		updated_at
+		updated_at,
+		case
+			when (select count(id) from tokens t where user_id = users.id and t.expiry > NOW()) > 0 then 1
+			else 0
+		end as has_token
 		from users
 		order by last_name
 	`
@@ -85,8 +91,10 @@ func (u *User) GetAll() ([]*User, error) {
 			&user.FirstName,
 			&user.LastName,
 			&user.Password,
+			&user.Active,
 			&user.CreatedAt,
 			&user.UpdatedAt,
+			&user.Token.ID,
 		)
 		if err != nil {
 			return nil, err
@@ -109,6 +117,7 @@ func (u *User) GetByEmail(email string) (*User, error) {
 		first_name,
 		last_name,
 		password,
+		user_active,
 		created_at,
 		updated_at
 		from users
@@ -124,6 +133,7 @@ func (u *User) GetByEmail(email string) (*User, error) {
 		&user.FirstName,
 		&user.LastName,
 		&user.Password,
+		&user.Active,
 		&user.CreatedAt,
 		&user.UpdatedAt,
 	)
@@ -145,6 +155,7 @@ func (u *User) GetOne(id int) (*User, error) {
 		first_name,
 		last_name,
 		password,
+		user_active,
 		created_at,
 		updated_at
 		from users
@@ -160,6 +171,7 @@ func (u *User) GetOne(id int) (*User, error) {
 		&user.FirstName,
 		&user.LastName,
 		&user.Password,
+		&user.Active,
 		&user.CreatedAt,
 		&user.UpdatedAt,
 	)
@@ -180,14 +192,16 @@ func (u *User) Update() error {
 		email = $1,
 		first_name = $2,
 		last_name = $3,
-		updated_at = $4
-		where id = $5
+		user_active = $4,
+		updated_at = $5,
+		where id = $6
 	`
 
 	_, err := db.ExecContext(ctx, stmt,
 		u.Email,
 		u.FirstName,
 		u.LastName,
+		u.Active,
 		time.Now(),
 		u.ID,
 	)
@@ -250,6 +264,7 @@ func (u *User) Insert(user User) (int, error) {
 			first_name,
 			last_name,
 			password,
+			user_active
 			created_at,
 			updated_at
 		)
@@ -259,7 +274,8 @@ func (u *User) Insert(user User) (int, error) {
 			$3,
 			$4,
 			$5,
-			$6
+			$6,
+			$7
 		)
 		returning id
 	`
@@ -269,6 +285,7 @@ func (u *User) Insert(user User) (int, error) {
 		user.FirstName,
 		user.LastName,
 		hashedPassword,
+		user.Active,
 		time.Now(),
 		time.Now(),
 	).Scan(&newID)
@@ -387,6 +404,7 @@ func (t *Token) GetUserForToken(token Token) (*User, error) {
 			first_name,
 			last_name,
 			password,
+			user_active,
 			created_at,
 			updated_at
 		from users
@@ -403,6 +421,7 @@ func (t *Token) GetUserForToken(token Token) (*User, error) {
 		&user.FirstName,
 		&user.LastName,
 		&user.Password,
+		&user.Active,
 		&user.CreatedAt,
 		&user.UpdatedAt,
 	)
@@ -471,6 +490,10 @@ func (t *Token) AuthenticateToken(r *http.Request) (*User, error) {
 	user, err := t.GetUserForToken(*tkn)
 	if err != nil {
 		return nil, errors.New("no matching user found")
+	}
+
+	if user.Active == 0 {
+		return nil, errors.New("user not active")
 	}
 
 	return user, nil
