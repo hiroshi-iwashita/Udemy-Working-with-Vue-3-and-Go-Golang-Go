@@ -434,7 +434,7 @@ func (t *Token) AuthenticateToken(r *http.Request) (*User, error) {
 	}
 
 	// make sure the token is of the correct length
-	token := headerParts[2]
+	token := headerParts[1]
 	if len(token) != 26 {
 		return nil, errors.New("token wrong size")
 	}
