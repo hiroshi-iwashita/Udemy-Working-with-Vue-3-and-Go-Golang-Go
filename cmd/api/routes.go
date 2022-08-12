@@ -42,6 +42,9 @@ func (app *application) routes() http.Handler {
 	mux.Post("/users/login", app.Login)
 	mux.Post("/users/logout", app.Logout)
 
+	mux.Post("/books", app.AllBooks)
+	mux.Get("/books", app.AllBooks)
+
 	mux.Post("/validate-token", app.ValidateToken)
 
 	// all of the routes in the block below are prefixed with /admin, and also
@@ -56,6 +59,10 @@ func (app *application) routes() http.Handler {
 		mux.Post("/users/delete", app.DeleteUser)
 		mux.Post("/log-user-out/{id}", app.LogUserOutAndSetInactive)
 	})
+
+	// static files
+	fileServer := http.FileServer(http.Dir("./static/"))
+	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
 
 	return mux
 }
