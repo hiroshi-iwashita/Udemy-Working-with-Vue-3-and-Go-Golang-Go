@@ -19,5 +19,7 @@ $ docker-compose up -d
     $ go get github.com/jackc/pgx/v4
     $ go get github.com/jackc/pgx/v4/stdlib
 
+- Uses [mozillazg / go-slugify](https://github.com/mozillazg/go-slugify)
+
 ### references
 - [PostgreSQL Error Codes](https://www.postgresql.org/docs/14/errcodes-appendix.html)
