@@ -15,15 +15,21 @@ $ docker-compose up -d
 - Uses [chi router](https://github.com/go-chi/chi)
 - Uses [chi cors](https://github.com/go-chi/cors)
 - Uses [jackc/pgx](https://github.com/jackc/pgx)
--> $ go get github.com/jackc/pgconn
--> $ go get github.com/jackc/pgx/v4
--> $ go get github.com/jackc/pgx/v4/stdlib
+
+    -> $ go get github.com/jackc/pgconn
+
+    -> $ go get github.com/jackc/pgx/v4
+
+    -> $ go get github.com/jackc/pgx/v4/stdlib
 
 - Uses [mozillazg / go-slugify](https://github.com/mozillazg/go-slugify)
 - Uses [DATA-DOG / go-sqlmock](https://github.com/DATA-DOG/go-sqlmock)
--> $ go get github.com/DATA-DOG/go-sqlmock
--> $ go test -v .
--> $ go test -coverprofile=coverage.out && go tool cover -html=coverage.out
+
+    -> $ go get github.com/DATA-DOG/go-sqlmock
+    
+    -> $ go test -v .
+
+    -> $ go test -coverprofile=coverage.out && go tool cover -html=coverage.out
 
 ### references
 - [PostgreSQL Error Codes](https://www.postgresql.org/docs/14/errcodes-appendix.html)
