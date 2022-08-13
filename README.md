@@ -23,6 +23,7 @@ $ docker-compose up -d
 - Uses [DATA-DOG / go-sqlmock](https://github.com/DATA-DOG/go-sqlmock)
 -> $ go get github.com/DATA-DOG/go-sqlmock
 -> $ go test -v .
+-> $ go test -coverprofile=coverage.out && go tool cover -html=coverage.out
 
 ### references
 - [PostgreSQL Error Codes](https://www.postgresql.org/docs/14/errcodes-appendix.html)
