@@ -22,6 +22,7 @@ $ docker-compose up -d
 - Uses [mozillazg / go-slugify](https://github.com/mozillazg/go-slugify)
 - Uses [DATA-DOG / go-sqlmock](https://github.com/DATA-DOG/go-sqlmock)
 -> $ go get github.com/DATA-DOG/go-sqlmock
+-> $ go test -v .
 
 ### references
 - [PostgreSQL Error Codes](https://www.postgresql.org/docs/14/errcodes-appendix.html)
